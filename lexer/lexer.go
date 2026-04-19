@@ -2,7 +2,6 @@ package lexer
 
 import (
 	"interpreter/token"
-	"fmt"
 )
 
 type Lexer struct {
@@ -46,10 +45,22 @@ func (l *Lexer) NextToken() token.Token {
 			tok = newToken(token.COMMA, l.ch)
 		case '+':
 			tok = newToken(token.PLUS, l.ch)
+		case '-':
+			tok = newToken(token.MINUS, l.ch)
+		case '/':
+			tok = newToken(token.DIV, l.ch)
+		case '*':
+			tok = newToken(token.MUL, l.ch)
+		case '!':
+			tok = newToken(token.NOT, l.ch)
 		case '{':
 			tok = newToken(token.LBRACE, l.ch)
 		case '}':
 			tok = newToken(token.RBRACE, l.ch)
+		case '>':
+			tok = newToken(token.GREATER, l.ch)
+		case '<':
+			tok = newToken(token.LESS, l.ch)
 		case 0:
 			tok.Literal = ""
 			tok.Type = token.EOF
@@ -103,5 +114,4 @@ func (l *Lexer) skipWhitespace() {
 	for l.ch == ' ' || l.ch == '\t' || l.ch == '\r' || l.ch == '\n' {
 		l.readChar()
 	}
-	fmt.Printf("%c", l.ch)
 }
