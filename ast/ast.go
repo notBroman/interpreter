@@ -4,19 +4,20 @@ import
 	"interpreter/token"
 
 type Node interface {
-	TokenLiteral() string	
+	TokenLiteral() string
 }
 
 type Statement interface {
-	Node statementNode()
+	statementNode() Node
+	TokenLiteral() string
 }
 
 type Expression interface {
-	Node expressionNode()
+	expressionNode() Node
+	TokenLiteral() string
 }
 
-type Program struct
-{
+type Program struct {
 	Statements []Statement
 }
 
@@ -34,19 +35,21 @@ type LetStatement struct {
 	Value Expression
 }
 
-func (ls *LetStatement) statementNode() {}
+func (ls *LetStatement) statementNode() Node {
+	return nil
+}
 
-func (ls *LetStatement) tokenLiteral() string {
+func (ls *LetStatement) TokenLiteral() string {
 	return ls.Token.Literal
 }
 
 type Identifier struct {
 	Token token.Token // the token.IDENT token
-	value string
+	Value string
 }
 
 func (i *Identifier) expressionNode() {}
 
-func (i *Identifier) tokenLiteral() string {
+func (i *Identifier) TokenLiteral() string {
 	return i.Token.Literal
 }
