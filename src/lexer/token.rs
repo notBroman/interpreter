@@ -1,5 +1,4 @@
-use std::collections::HashMap;
-
+#[derive(Eq, PartialEq, Hash, Clone, Copy, Debug)]
 pub enum TokenType {
     ILLEGAL = 0,
     EOF,
@@ -36,67 +35,46 @@ pub enum TokenType {
     FALSE,
 }
 
-const enumLiteral: HashMap<TokenType, String> = {
-    ILLEGAL = "ILLEGAL";
-    EOF = "EOF";
-    IDENT = "IDENT";
-    INT = "INT";
-    ASSIGN = "=";
-    PLUS = "+";
-    MINUS = "-";
-    SLASH = "/";
-    ASTERISK = "*";
-    LT = "<";
-    GT = ">";
-    BANG = "!";
-    EQ = "==";
-    NEQ = "!=";
-    COMMA = ",";
-    SEMICOLON = ";";
-    LPAREN = "(";
-    RPAREN = ")";
-    LBRACE = "{";
-    RBRACE = "}";
-    FUNCTION = "FUNCTION";
-    LET = "LET";
-    RETURN = "RETURN";
-    IF = "IF";
-    ELSE = "ELSE";
-    TRUE = "TRUE";
-    FALSE = "FALSE";
-};
+// const TOKEN_LITERAL: HashMap<TokenType, String> = [
+//     (TokenType::ILLEGAL, "ILLEGAL"),
+//     (TokenType::EOF, "EOF"),
+//     (TokenType::IDENT, "IDENT"),
+//     (TokenType::INT, "INT"),
+//     (TokenType::ASSIGN, "="),
+//     (TokenType::PLUS, "+"),
+//     (TokenType::MINUS, "-"),
+//     (TokenType::SLASH, "/"),
+//     (TokenType::ASTERISK, "*"),
+//     (TokenType::LT, "<"),
+//     (TokenType::GT, ">"),
+//     (TokenType::BANG, "!"),
+//     (TokenType::EQ, "=="),
+//     (TokenType::NEQ, "!="),
+//     (TokenType::COMMA, ","),
+//     (TokenType::SEMICOLON, ";"),
+//     (TokenType::LPAREN, "("),
+//     (TokenType::RPAREN, ")"),
+//     (TokenType::LBRACE, "{"),
+//     (TokenType::RBRACE, "}"),
+//     (TokenType::FUNCTION, "FUNCTION"),
+//     (TokenType::LET, "LET"),
+//     (TokenType::RETURN, "RETURN"),
+//     (TokenType::IF, "IF"),
+//     (TokenType::ELSE, "ELSE"),
+//     (TokenType::TRUE, "TRUE"),
+//     (TokenType::FALSE, "FALSE"),
+// ];
 
 pub struct Token {
-    Type: TokenType,
-    Literal: String,
+    pub tokentype: TokenType,
+    pub literal: String,
 }
 
 impl Token {
-    pub fn New(Type: TokenType, Literal: String) -> Self {
+    pub fn new(ttype: TokenType, literal: String) -> Self {
         Self {
-            Type: TokenType,
-            Literal: Literal,
+            tokentype: ttype,
+            literal: literal,
         }
     }
-
-    pub fn getTokenTypeName() -> String {
-        enumLiteral.get(Self.Type);
-    }
 }
-
-pub fn LookupIdent(ident: String) -> TokenType {
-    match keywords.get(ident) {
-        Some(tok) => return tok,
-        None => return crate::TokenType::IDENT,
-    }
-}
-
-pub const keywords: HashMap<String, TokenType> = {
-    "fn" = FUNCTION;
-    "let" = LET;
-    "return" = RETURN;
-    "true" = TRUE;
-    "false" = FALSE;
-    "if" = IF;
-    "else" = ELSE;
-};
